@@ -28,3 +28,5 @@ RUN apt-get update && \
     rm -rf /var/tmp/*
 
 ADD ./PlexComskip.conf /opt/PlexComskip/PlexComskip.conf
+
+ADD ./fixperms.sh /var/run/s6/etc/cont-init.d/15-fixperms
