@@ -4,7 +4,7 @@ Inspired by Plex DVR. This container has [Comskip](https://github.com/erikkaasho
 
 ### How to use:
 - [Pull k-plex from docker](https://hub.docker.com/r/kmcgill88/k-plex/) by running, `docker pull bwstitt/plex`
-- Run the container as described by [plexinc/pms-docker](https://hub.docker.com/r/plexinc/pms-docker/)
+- Run the container almost as described by [plexinc/pms-docker](https://hub.docker.com/r/plexinc/pms-docker/). You will also need to add `--device /dev/dvb` to your run command.
 - Once running, go to Plex Settings, then DVR (Beta)
 - DVR Settings
 - Scroll to `POSTPROCESSING SCRIPT`
