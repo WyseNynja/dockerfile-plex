@@ -10,3 +10,6 @@ do
         echo " - $x"
     fi
 done
+
+# https://github.com/mandreko/pms-docker/pull/1
+exec s6-setuidgid plex /bin/sh -c 'umask 0002'
