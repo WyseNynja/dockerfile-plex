@@ -37,7 +37,7 @@ RUN set -eux; \
     mv PlexComskip-master/PlexComskip.py PlexComskip-master/comskip.ini PlexComskip &&\
     rm -rf PlexComskip-master; \
     touch /var/log/PlexComskip.log; \
-    chown -r plex:plex PlexComskip /var/log/PlexComskip.log
+    chown -R plex:plex PlexComskip /var/log/PlexComskip.log
 
 COPY ./PlexComskip.conf /opt/PlexComskip/PlexComskip.conf
 
