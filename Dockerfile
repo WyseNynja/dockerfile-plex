@@ -14,26 +14,30 @@ RUN docker-apt-install \
     libavutil-dev \
     libsdl1.2-dev \
     libtool-bin
-RUN cd /tmp && \
-    curl -L https://github.com/erikkaashoek/Comskip/archive/master.tar.gz | tar xvz -C /tmp/ && \
-    cd Comskip-master && \
-    ./autogen.sh && \
-    ./configure && \
-    make && \
-    mv comskip /usr/local/bin/ && \
+RUN set -eux; \
+    \
+    cd /tmp; \
+    curl -L https://github.com/erikkaashoek/Comskip/archive/master.tar.gz | tar xvz -C /tmp/; \
+    cd Comskip-master; \
+    ./autogen.sh; \
+    ./configure; \
+    make; \
+    mv comskip /usr/local/bin/; \
     rm -rf /tmp/*
     # TODO: remove build-only dependencies
 
 # PlexComskip
 RUN docker-apt-install \
     python3
-RUN cd /opt && \
-    curl -L https://github.com/ekim1337/PlexComskip/archive/master.tar.gz | tar xvz -C /opt/ && \
-    mkdir PlexComskip && \
+RUN set -eux; \
+    \
+    cd /opt; \
+    curl -L https://github.com/ekim1337/PlexComskip/archive/master.tar.gz | tar xvz -C /opt/; \
+    mkdir PlexComskip; \
     mv PlexComskip-master/PlexComskip.py PlexComskip-master/comskip.ini PlexComskip &&\
-    rm -rf PlexComskip-master && \
-    touch /var/log/PlexComskip.log && \
-    chown plex:plex PlexComskip /var/log/PlexComskip.log
+    rm -rf PlexComskip-master; \
+    touch /var/log/PlexComskip.log; \
+    chown -r plex:plex PlexComskip /var/log/PlexComskip.log
 
 COPY ./PlexComskip.conf /opt/PlexComskip/PlexComskip.conf
 
@@ -44,17 +48,19 @@ RUN docker-apt-install \
     tesseract-ocr \
     tesseract-ocr-dev \
     unzip
-RUN cd /tmp && \
-    curl -o ccextractor.zip https://www.stitthappens.com/share/ccextractor-src-nowin.0.85.zip && \
-    unzip ccextractor.zip && \
-    cd ./ccextractor/linux/ && \
-    bash ./build && \
-    mv ccextractor /usr/local/bin/ && \
-    cd / && \
+RUN set -eux; \
+    \
+    cd /tmp; \
+    curl -o ccextractor.zip https://www.stitthappens.com/share/ccextractor-src-nowin.0.85.zip; \
+    unzip ccextractor.zip; \
+    cd ./ccextractor/linux/; \
+    bash ./build; \
+    mv ccextractor /usr/local/bin/; \
+    cd /; \
     rm -rf /tmp/*
     # TODO: remove build-only dependencies
 
 # TODO: s6 already has something like this, too: https://github.com/just-containers/s6-overlay/issues/146
-COPY ./fixperms.sh /var/run/s6/etc/cont-init.d/15-fixperms
+COPY ./fixperms.sh /var/run/s6/etc/cont-init.d/60-fixperms
 
 COPY ./postProcess.sh /opt/
