@@ -60,7 +60,7 @@ RUN set -eux; \
     rm -rf /tmp/*
     # TODO: remove build-only dependencies
 
-# TODO: s6 already has something like this, too: https://github.com/just-containers/s6-overlay/issues/146
-COPY ./fixperms.sh /var/run/s6/etc/cont-init.d/10-fixperms
+# TODO: use https://github.com/just-containers/s6-overlay#fixing-ownership--permissions instead
+COPY ./fixperms.sh /etc/cont-init.d/10-fixperms
 
 COPY ./postProcess.sh /opt/
