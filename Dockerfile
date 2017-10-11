@@ -51,7 +51,7 @@ RUN docker-apt-install \
 RUN set -eux; \
     \
     cd /tmp; \
-    curl -o ccextractor.zip https://www.stitthappens.com/share/ccextractor-src-nowin.0.85.zip; \
+    curl -o ccextractor.zip https://downloads.sourceforge.net/project/ccextractor/ccextractor/0.85/ccextractor-src-nowin.0.85.zip; \
     unzip ccextractor.zip; \
     cd ./ccextractor/linux/; \
     bash ./build; \
