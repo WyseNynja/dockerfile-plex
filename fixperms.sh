@@ -6,7 +6,7 @@ echo "Fixing perms..."
 for x in /config "/config/Library/Application Support/Plex Media Server/Logs" /dev/dri /dev/dvb /transcode /data/* /var/log/PlexComskip.log /opt/PlexComskip
 do
     if [ -e "$x" ] && [ "$(stat -c '%U' "$x")" != "plex" ]; then
-        chown -R plex:plex "$x" &
+        find "$x" ! -user plex -exec chown plex:plex {} \; &
         echo " - $x"
     fi
 done
