@@ -61,6 +61,9 @@ RUN set -eux; \
     # TODO: remove build-only dependencies
 
 # TODO: use https://github.com/just-containers/s6-overlay#fixing-ownership--permissions instead
-COPY ./fixperms.sh /etc/cont-init.d/10-fixperms
+# CHANGE_CONFIG_DIR_OWNERSHIP disables upstream's chown since we have our own. should probably merge my stuff back upstream
+# keep this AFTER 40-plex-first-run otherwise GID and UID won't be correct
+ENV CHANGE_CONFIG_DIR_OWNERSHIP=false
+COPY ./fixperms.sh /etc/cont-init.d/41-fixperms
 
 COPY ./postProcess.sh /opt/
