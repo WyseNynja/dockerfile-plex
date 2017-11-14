@@ -8,7 +8,7 @@ Inspired by Plex DVR. This container has [Comskip](https://github.com/erikkaasho
 - Once running, go to Plex Settings, then DVR (Beta)
 - DVR Settings
 - Scroll to `POSTPROCESSING SCRIPT`
-- Enter `/opt/PlexComskip/PlexComskip.py`
+- Enter `/opt/postProcess.sh` (note: the image below is outdated)
 - Click `Save`.
 - Enjoy commercial free TV!
 
