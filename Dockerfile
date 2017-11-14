@@ -1,19 +1,24 @@
-FROM plexinc/pms-docker:plexpass
+FROM bwstitt/debian:jessie as base
 
-COPY ./docker-apt-install.sh /usr/local/sbin/docker-apt-install
+# FROM plexinc/pms-docker:plexpass
+FROM plexinc/pms-docker:latest
+
+COPY --from=base /usr/local/sbin/docker-install /usr/local/sbin/
 
 # Comskip
-RUN docker-apt-install \
-    automake \
-    autoconf \
-    build-essential \
-    ffmpeg \
-    libargtable2-dev \
-    libavcodec-dev \
-    libavformat-dev \
-    libavutil-dev \
-    libsdl1.2-dev \
-    libtool-bin
+RUN docker-install \
+        automake \
+        autoconf \
+        build-essential \
+        ffmpeg \
+        libargtable2-dev \
+        libavcodec-dev \
+        libavformat-dev \
+        libavutil-dev \
+        libsdl1.2-dev \
+        libtool-bin \
+    ;
+# TODO: check sha256sum of archive
 RUN set -eux; \
     \
     cd /tmp; \
@@ -27,8 +32,7 @@ RUN set -eux; \
     # TODO: remove build-only dependencies
 
 # PlexComskip
-RUN docker-apt-install \
-    python3
+# TODO: check sha256sum of archive
 RUN set -eux; \
     \
     cd /opt; \
@@ -42,12 +46,14 @@ RUN set -eux; \
 COPY ./PlexComskip.conf /opt/PlexComskip/PlexComskip.conf
 
 # Closed captioning extractor
-RUN docker-apt-install \
-    libcurl4-gnutls-dev \
-    libleptonica-dev \
-    tesseract-ocr \
-    tesseract-ocr-dev \
-    unzip
+RUN docker-install \
+        libcurl4-gnutls-dev \
+        libleptonica-dev \
+        tesseract-ocr \
+        tesseract-ocr-dev \
+        unzip \
+    ;
+# TODO: check sha256sum of archive
 RUN set -eux; \
     \
     cd /tmp; \
