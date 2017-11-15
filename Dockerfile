@@ -45,27 +45,6 @@ RUN set -eux; \
 
 COPY ./PlexComskip.conf /opt/PlexComskip/PlexComskip.conf
 
-# Closed captioning extractor
-RUN docker-install \
-        libcurl4-gnutls-dev \
-        libleptonica-dev \
-        tesseract-ocr \
-        tesseract-ocr-dev \
-        unzip \
-    ;
-# TODO: check sha256sum of archive
-RUN set -eux; \
-    \
-    cd /tmp; \
-    curl -o ccextractor.zip -L https://downloads.sourceforge.net/project/ccextractor/ccextractor/0.85/ccextractor-src-nowin.0.85.zip; \
-    unzip ccextractor.zip; \
-    cd ./ccextractor/linux/; \
-    bash ./build; \
-    mv ccextractor /usr/local/bin/; \
-    cd /; \
-    rm -rf /tmp/*
-    # TODO: remove build-only dependencies
-
 # TODO: use https://github.com/just-containers/s6-overlay#fixing-ownership--permissions instead
 # CHANGE_CONFIG_DIR_OWNERSHIP disables upstream's chown since we have our own. should probably merge my stuff back upstream
 # keep this AFTER 40-plex-first-run otherwise GID and UID won't be correct
